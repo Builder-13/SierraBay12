@@ -110,10 +110,14 @@
 	var/starting_message = "[user] начал детальный осмотр [identify_item.name]"
 
 	if(LAZYLEN(additional_users))
+		var/list/additional_names = list()
 		starting_message += " вместе с:"
 		for(var/auser in additional_users)
 			var/auser_name = additional_users[auser]["name"]
-			starting_message += "  [auser_name]"
+			additional_names.Add(auser_name)
+
+		starting_message += jointext(additional_names, ", ")
+
 		starting_message += "."
 
 	user.visible_message(starting_message)
