@@ -9,7 +9,7 @@
 	if(psi_latency_chance && prob(psi_latency_chance))
 		H.set_psi_rank(pick(PSI_COERCION, PSI_REDACTION, PSI_ENERGISTICS, PSI_PSYCHOKINESIS, PSI_CONSCIOUSNESS, PSI_MANIFESTATION, PSI_METAKINESIS), 1, defer_update = TRUE)
 
-	if(!whitelist_lookup(SPECIES_PSI, H.client.ckey))
+	if(!H.client || !whitelist_lookup(SPECIES_PSI, H.client.ckey))
 		return
 
 	var/list/psi_abilities_by_name = H.client.prefs.psi_abilities

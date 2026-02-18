@@ -100,6 +100,11 @@
 		/datum/computer_file/program/munitions
 	)
 
+/obj/machinery/computer/modular/preset/munitions/syndicate
+	default_software = list(
+		/datum/computer_file/program/munitions/syndicate
+	)
+
 /obj/machinery/computer/modular/preset/cardslot/command_eng
 	default_software = list(
 		/datum/computer_file/program/comm,
@@ -199,3 +204,9 @@
 		/datum/computer_file/program/wordprocessor
 	)
 	autorun_program = /datum/computer_file/program/filemanager
+
+/obj/machinery/computer/modular/preset/vr_control
+	default_software = list(
+		/datum/computer_file/program/vr_control
+	)
+	autorun_program = /datum/computer_file/program/vr_control

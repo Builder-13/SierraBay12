@@ -51,6 +51,13 @@
 	build_path = /obj/item/implantcase/explosive
 	sort_string = "MFAAG"
 
+/datum/design/item/implant/virtual_reality
+	name = "virtual reality"
+	id = "implant_virtual_reality"
+	req_tech = list(TECH_MATERIAL = 2, TECH_BIO = 3, TECH_DATA = 4)
+	build_path = /obj/item/implantcase/virtual_reality
+	sort_string = "MFAAH"
+
 /datum/design/item/implant/implanter
 	name = "implanter"
 	id = "implanter"

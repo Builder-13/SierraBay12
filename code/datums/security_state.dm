@@ -125,6 +125,14 @@
 		var/obj/item/implant/psi_control/implant = thing
 		implant.update_functionality()
 
+	if (new_security_level.kick_vr_users) // wake the fuck up, samurai
+		for (var/mob/living/M in SSvirtual_reality.virtual_occupants_to_mobs)
+			var/turf/T = get_turf(M)
+			if (T.z in GLOB.using_map.contact_levels)
+				var/mob/living/surrogate = SSvirtual_reality.virtual_occupants_to_mobs[M]
+				to_chat(surrogate, SPAN_DANGER(FONT_LARGE("ALERT: VR is no longer safe to use. Connection terminated.")))
+				SSvirtual_reality.remove_virtual_mob(M, TRUE, silent = TRUE)
+
 	log_and_message_admins("has changed the security level from [previous_security_level.name] to [new_security_level.name].")
 	return TRUE
 
@@ -139,7 +147,6 @@
 	var/icon
 	var/name
 	var/alarm_level = "off"
-	var/alarm_sound
 
 	// These values are primarily for station alarms and status displays, and which light colors and overlays to use
 	var/light_range
@@ -154,6 +161,8 @@
 	var/up_description
 	var/down_description
 	var/psionic_control_level = PSI_IMPLANT_WARN
+
+	var/kick_vr_users = FALSE
 
 // Called when we're switching from a lower security level to this one.
 /singleton/security_level/proc/switching_up_to()
@@ -199,7 +208,7 @@
 			FA.update_icon()
 	for (var/obj/machinery/rotating_alarm/security_alarm/SA as anything in SSmachines.get_machinery_of_type(/obj/machinery/rotating_alarm/security_alarm))
 		if (SA.z in GLOB.using_map.contact_levels)
-			SA.set_alert(name, alarm_level, light_color_alarm, alarm_sound)
+			SA.set_alert(name, alarm_level, light_color_alarm)
 	post_status("alert")
 
 /singleton/security_level/default/code_green
@@ -238,7 +247,6 @@
 /singleton/security_level/default/code_red
 	name = "code red"
 	alarm_level = "on"
-	alarm_sound = 'sound/obj/machinery/rotating_alarm/alert_red.ogg'
 
 	light_range = 4
 	light_power = 2
@@ -257,7 +265,6 @@
 /singleton/security_level/default/code_delta
 	name = "code delta"
 	alarm_level = "on"
-	alarm_sound = 'sound/obj/machinery/rotating_alarm/alert_red.ogg'
 
 	light_range = 4
 	light_power = 2

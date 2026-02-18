@@ -22,7 +22,7 @@
 	var/damage_threshold_value
 	var/healed_threshold = 1
 	var/oxygen_reserve = 6
-	var/fake_brain = 0
+	var/fake_brain = 0 //[SIERRA-ADD] - zombie pr 2588
 
 /obj/item/organ/internal/brain/robotize()
 	replace_self_with(/obj/item/organ/internal/posibrain)
@@ -102,7 +102,13 @@
 		borer.detatch() //Should remove borer if the brain is removed - RR
 
 	if(!fake_brain)
-		transfer_identity(owner)
+		if (!has_extension(owner, /datum/extension/virtual_surrogate)) // do digital brains dream of electric sheep?
+			transfer_identity(owner)
+		else
+			owner.death()
+			..()
+			qdel(src)
+			return
 
 	..()
 
@@ -133,6 +139,8 @@
 /obj/item/organ/internal/brain/proc/handle_severe_brain_damage()
 	set waitfor = FALSE
 	healed_threshold = 0
+	if (owner && has_extension(owner, /datum/extension/virtual_surrogate)) // Virtual mobs don't get memory loss from brain damage
+		return
 	to_chat(owner, SPAN_NOTICE(FONT_GIANT("<B>What's going on...?</B>")))
 	sleep(5 SECONDS)
 	if (!owner || owner.is_real_dead() || (status & ORGAN_DEAD))

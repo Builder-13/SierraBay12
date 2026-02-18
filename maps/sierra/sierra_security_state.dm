@@ -137,7 +137,6 @@
 /singleton/security_level/default/sierradept/code_red
 	name = "code red"
 	alarm_level = "on"
-	alarm_sound = 'sound/obj/machinery/rotating_alarm/alert_red.ogg'
 
 	light_range = 4
 	light_power = 2
@@ -148,6 +147,8 @@
 	alert_border = "alert_border_red"
 
 	psionic_control_level = PSI_IMPLANT_DISABLED
+	kick_vr_users = TRUE
+
 	var/static/datum/announcement/priority/security/security_announcement_red = new(do_log = 0, do_newscast = 1, new_sound = sound('sound/misc/redalert1.ogg'))
 
 /singleton/security_level/default/sierradept/code_red/switching_up_to()
@@ -172,7 +173,6 @@
 /singleton/security_level/default/sierradept/code_delta
 	name = "code delta"
 	alarm_level = "on"
-	alarm_sound = 'sound/obj/machinery/rotating_alarm/alert_red.ogg'
 
 	light_range = 4
 	light_power = 2
@@ -184,6 +184,7 @@
 	alert_border = "alert_border_delta"
 
 	psionic_control_level = PSI_IMPLANT_DISABLED
+	kick_vr_users = TRUE
 	var/static/datum/announcement/priority/security/security_announcement_delta = new(do_log = 0, do_newscast = 1, new_sound = sound('sound/effects/siren.ogg'))
 
 /singleton/security_level/default/sierradept/code_delta/switching_up_to()
